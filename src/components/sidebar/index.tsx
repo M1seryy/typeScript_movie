@@ -9,13 +9,13 @@ const navLinks = [
   {
     name: "Home",
     icon: homeIcon,
-    link: "/home",
-  },
-  {
-    name: "Login",
-    icon: homeIcon,
     link: "/",
   },
+  // {
+  //   name: "Login",
+  //   icon: homeIcon,
+  //   link: "/",
+  // },
   {
     name: "Movies",
     icon: movieIcon,
@@ -29,7 +29,7 @@ const navLinks = [
   {
     name: "Bookmarks",
     icon: bookmarkIcon,
-    link: "/bookmarks",
+    link: "/bookMark",
   },
 ];
 

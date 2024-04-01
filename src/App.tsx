@@ -1,13 +1,12 @@
 import { RouterProvider } from "react-router-dom";
-import { router } from "./routes";
-import { MovieProvider } from "./context/movie-context";
 import "./App.css";
+import { router } from "./routes";
 
 function App() {
   return (
-    <MovieProvider>
+    <div>
       <RouterProvider router={router} />
-    </MovieProvider>
+    </div>
   );
 }
 

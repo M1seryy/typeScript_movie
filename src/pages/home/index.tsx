@@ -1,38 +1,27 @@
-import React, { useState, SetStateAction, useContext } from "react";
+import React, { SetStateAction, useState } from "react";
 import Layout from "../../Layout";
 import {
   Box,
-  Paper,
-  InputBase,
   InputAdornment,
+  InputBase,
+  Paper,
   Typography,
 } from "@mui/material";
 import SearchIcon from "../../assets/icons/icon-search.svg";
 import MovieTrendList from "../../components/movie-list/movieTrendList";
-import MovieList from "../../components/movie-list";
-import { MovieDataType } from "../../assets/data";
-import { MovieContext } from "../../context/movie-context";
+import MovieList from "../../components/movie-list/MovieList";
 
 const Home = () => {
   const [search, setSearch] = useState("");
-  const [searchList, setSearchList] = useState<MovieDataType[]>([]);
-  const { state } = useContext(MovieContext);
-  const { movies } = state;
-  const trendingList = movies.filter((item) => item.isTrending === true);
-  const recommendList = movies.filter((item) => item.isTrending !== true);
 
-  const handleSearch = (e: { target: { value: SetStateAction<string> } }) => {
+  const searchHnadler = (e: { target: { value: SetStateAction<string> } }) => {
     setSearch(e.target.value);
-    const newList = movies.filter((movie) =>
-      movie.title.toLowerCase().includes(search.toLowerCase())
-    );
-    setSearchList(newList);
   };
   return (
     <Layout>
       <Box>
         <Paper
-          component="form"
+          component={"form"}
           sx={{
             display: "flex",
             alignItems: "center",
@@ -43,6 +32,12 @@ const Home = () => {
           }}
         >
           <InputBase
+            onChange={searchHnadler}
+            startAdornment={
+              <InputAdornment position="start">
+                <img src={SearchIcon} alt="" width={20} height={20} />
+              </InputAdornment>
+            }
             placeholder="Search for movies or TV series"
             sx={{
               ml: 1,
@@ -51,42 +46,29 @@ const Home = () => {
               border: "none",
             }}
             value={search}
-            onChange={handleSearch}
-            startAdornment={
-              <InputAdornment position="start">
-                <img
-                  src={SearchIcon}
-                  alt="search icon"
-                  width={20}
-                  height={20}
-                />
-              </InputAdornment>
-            }
           />
         </Paper>
       </Box>
       <Box py={2} px={4}>
         {search === "" ? (
-          <Box width="100%">
-            <Box width="100%">
-              <Typography variant="h5" component="h1" my={6} fontWeight={400}>
+          <Box width={"100%"}>
+            <Box width={"100%"}>
+              <Typography variant={"h5"} component="h1" my={6} fontWeight={400}>
                 Trending
               </Typography>
-              <MovieTrendList trendingList={trendingList} />
+              <MovieTrendList trendList={trendList}/>
             </Box>
-            <Box width="100%">
-              <Typography variant="h5" component="h1" my={6} fontWeight={400}>
-                Recommended For You
+
+            <Box width={"100%"}>
+              <Typography variant={"h5"} component="h1" my={6} fontWeight={400}>
+                Recomending
               </Typography>
-              <MovieList recommendList={recommendList} />
+              <MovieList recomendedList={recomendedList }/>
             </Box>
           </Box>
         ) : (
-          <Box width="100%">
-            <Typography>
-              Found {searchList.length} results for "{search}"{""}
-            </Typography>
-            <MovieList recommendList={searchList} />
+          <Box width={"100%"}>
+            <Typography>Found</Typography>
           </Box>
         )}
       </Box>
